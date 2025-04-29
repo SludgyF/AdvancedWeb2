@@ -16,13 +16,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.library.model.User;
 import com.example.library.repository.UserRepository;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/v1/users")
 public class UserController {
 
     @Autowired
     private UserRepository userRepository;
 
+    @Operation(summary = "Obtener todos los usuarios", description = "Lista todos los usuarios registrados.")
+    @ApiResponse(responseCode = "200", description = "Usuarios listados exitosamente")
     @GetMapping
     public List<User> getAllUsers() {
         return userRepository.findAll();

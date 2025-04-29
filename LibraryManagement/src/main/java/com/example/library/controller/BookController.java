@@ -2,6 +2,10 @@ package com.example.library.controller;
 
 import com.example.library.model.Book;
 import com.example.library.repository.BookRepository;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,12 +13,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/books")
+@RequestMapping("/api/v1/books")
 public class BookController {
 
     @Autowired
     private BookRepository bookRepository;
 
+    @Operation(summary = "Obtener todos los libros", description = "Devuelve una lista de todos los libros disponibles.")
+    @ApiResponse(responseCode = "200", description = "Lista obtenida exitosamente")
     @GetMapping
     public List<Book> getAllBooks() {
         return bookRepository.findAll();
