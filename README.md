@@ -19,7 +19,7 @@ Bryan Ithan Landín Lara - A01636271
 ## 🚀 To run use:
 
 ```bash
-git clone --branch sprint2 --single-branch https://github.com/SludgyF/AdvancedWeb2.git
+git clone https://github.com/SludgyF/AdvancedWeb2.git
 ```
 ```
 cd LibraryApi/LibraryManagement
