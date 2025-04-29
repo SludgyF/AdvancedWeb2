@@ -3,8 +3,10 @@ package com.example.library.controller;
 import com.example.library.model.Book;
 import com.example.library.repository.BookRepository;
 
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,20 +28,36 @@ public class BookController {
         return bookRepository.findAll();
     }
 
+    @Operation(summary = "Obtener un libro por ID", description = "Obtiene un libro usando su ID.")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Libro encontrado exitosamente"),
+        @ApiResponse(responseCode = "404", description = "Libro no encontrado")
+    })
     @GetMapping("/{id}")
-    public ResponseEntity<Book> getBookById(@PathVariable Long id) {
+    public ResponseEntity<Book> getBookById(@Parameter(description = "ID del libro a obtener") @PathVariable Long id) {
         return bookRepository.findById(id)
                 .map(book -> ResponseEntity.ok().body(book))
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @Operation(summary = "Crear un nuevo libro", description = "Agrega un nuevo libro a la biblioteca.")
+    @ApiResponses({
+        @ApiResponse(responseCode = "201", description = "Libro creado exitosamente"),
+        @ApiResponse(responseCode = "400", description = "Error de validación")
+    })
     @PostMapping
     public Book createBook(@RequestBody Book book) {
         return bookRepository.save(book);
     }
 
+    @Operation(summary = "Actualizar libro", description = "Actualiza la información de un libro existente.")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Libro actualizado exitosamente"),
+        @ApiResponse(responseCode = "404", description = "Libro no encontrado")
+    })
     @PutMapping("/{id}")
-    public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody Book bookDetails) {
+    public ResponseEntity<Book> updateBook(
+        @Parameter(description = "ID del libro a actualizar") @PathVariable Long id, @RequestBody Book bookDetails) {
         return bookRepository.findById(id)
                 .map(book -> {
                     book.setTitle(bookDetails.getTitle());
@@ -54,8 +72,13 @@ public class BookController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @Operation(summary = "Eliminar libro", description = "Elimina un libro de la biblioteca.")
+    @ApiResponses({
+        @ApiResponse(responseCode = "204", description = "Libro eliminado exitosamente"),
+        @ApiResponse(responseCode = "404", description = "Libro no encontrado")
+    })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteBook(@Parameter(description = "ID del libro a eliminar") @PathVariable Long id) {
         return bookRepository.findById(id)
                 .map(book -> {
                     bookRepository.delete(book);

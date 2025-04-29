@@ -4,6 +4,7 @@ import com.example.library.model.User;
 import com.example.library.repository.UserRepository;
 import com.example.library.security.JwtUtil;
 
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -51,6 +52,13 @@ public class AuthController {
             return "Authentication failed: " + e.getMessage();
         }
     }
+
+
+    @Operation(summary = "Registrar un nuevo usuario", description = "Registra un usuario nuevo en el sistema.")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Usuario registrado exitosamente"),
+        @ApiResponse(responseCode = "400", description = "Error de validación o usuario ya existe")
+    })
     @PostMapping("/signup")
     public String registerUser(@RequestBody User user) {
         if (userRepository.existsByUsername(user.getUsername())) {
