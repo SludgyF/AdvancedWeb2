@@ -31,4 +31,4 @@ mvn clean install
 mvn spring-boot:run
 ```
 # **Acceder a la documentacion**
-http://localhost:8080/swagger-ui.html
+http://localhost:8080/swagger-ui/index.html
