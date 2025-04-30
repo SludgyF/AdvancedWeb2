@@ -18,11 +18,13 @@ Bryan Ithan Landín Lara - A01636271
 
 ## 🚀 To run use:
 
+Para poder probarlo ademas se necesita la Wallet, por cuestiones de seguridad no esta subida en el repositorio
+
 ```bash
 git clone https://github.com/SludgyF/AdvancedWeb2.git
 ```
 ```
-cd LibraryApi/LibraryManagement
+cd .\AdvancedWeb2\LibraryManagement\
 ```
 ```
 mvn clean install
