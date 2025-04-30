@@ -24,7 +24,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/auth/signup",
+					"raw": "http://localhost:8080/api/v1/auth/signup",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -57,7 +57,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/auth/signin",
+					"raw": "http://localhost:8080/api/v1/auth/signin",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -78,7 +78,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/books",
+					"raw": "http://localhost:8080/api/v1/books",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -99,7 +99,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/books/:id",
+					"raw": "http://localhost:8080/api/v1/books/:id",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -135,7 +135,7 @@
 					"raw": "{\"title\":\"Book Title\",\"author\":\"Author Name\",\"isbn\":\"ISBN Number\",\"publicationYear\":2023,\"genre\":\"Genre\",\"pages\":300}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/books",
+					"raw": "http://localhost:8080/api/v1/books",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -156,7 +156,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/books/:id",
+					"raw": "http://localhost:8080/api/v1/books/:id",
 					"protocol": "http",
 					"host": [
 						"localhost"
