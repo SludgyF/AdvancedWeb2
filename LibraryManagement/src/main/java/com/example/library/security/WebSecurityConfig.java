@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.example.library.config.ApiPaths;
 import com.example.library.service.CustomUserDetailsService;
 @Configuration
 public class WebSecurityConfig {
@@ -48,8 +49,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers(
-                                    "/api/auth/**", 
-                                    "/api/test/all",
+                                    ApiPaths.AUTH + "/**", 
                                     "/swagger-ui/**", 
                                     "/v3/api-docs/**"
                                 ).permitAll() // Use 'requestMatchers' instead of 'antMatchers'

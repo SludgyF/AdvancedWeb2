@@ -1,22 +1,28 @@
 package com.example.library.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.library.config.ApiPaths;
+import com.example.library.dto.SigninRequest;
+import com.example.library.dto.SignupRequest;
 import com.example.library.model.User;
 import com.example.library.repository.UserRepository;
 import com.example.library.security.JwtUtil;
 
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.*;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping(ApiPaths.AUTH)
 public class AuthController {
     @Autowired
     AuthenticationManager authenticationManager;
@@ -34,13 +40,13 @@ public class AuthController {
         @ApiResponse(responseCode = "401", description = "Credenciales inválidas")
     })
     @PostMapping("/signin")
-    public String authenticateUser(@RequestBody User user) {
+    public String authenticateUser(@RequestBody SigninRequest user) {
         System.out.println("a");
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            user.getUsername(),
-                            user.getPassword()
+                            user.username(),
+                            user.password()
                     )
             );
             System.out.println("b");
@@ -60,15 +66,15 @@ public class AuthController {
         @ApiResponse(responseCode = "400", description = "Error de validación o usuario ya existe")
     })
     @PostMapping("/signup")
-    public String registerUser(@RequestBody User user) {
-        if (userRepository.existsByUsername(user.getUsername())) {
+    public String registerUser(@RequestBody SignupRequest user) {
+        if (userRepository.existsByUsername(user.username())) {
             return "Error: Username is already taken!";
         }
         // Create new user's account
         User newUser = new User(
-                user.getUsername(),
-                encoder.encode(user.getPassword()),
-                user.getEmail()
+                user.username(),
+                encoder.encode(user.password()),
+                user.email()
         );
         userRepository.save(newUser);
         return "User registered successfully!";
